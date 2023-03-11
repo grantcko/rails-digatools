@@ -1,8 +1,8 @@
 class Tool < ApplicationRecord
   belongs_to :user
 
-  INTERNAL_TYPES = ["Day off", "Paid dayoff", "Time off"]
-  enum internal_types: INTERNAL_TYPES
+  INTERNAL_CATEGORIES = ["category_placeholder"]
+  enum internal_categories: INTERNAL_CATEGORIES
 
   validates :name, presence: true
 end
