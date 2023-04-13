@@ -24,4 +24,14 @@ RSpec.describe Tool, type: :model do
       expect(tool.valid?).to eq(false)
     end
   end
+
+  context "when missing note" do
+    before do
+      tool.note = ""
+    end
+  end
+
+  it "is valid with no note" do
+    expect(tool.valid?).to eq(false)
+  end
 end
