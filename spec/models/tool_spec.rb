@@ -25,13 +25,23 @@ RSpec.describe Tool, type: :model do
     end
   end
 
+  context 'when missing user' do
+    before do
+      tool.user = nil
+    end
+
+    it "is not valid with no user" do
+      expect(tool.valid?).to eq(false)
+    end
+  end
+
   context "when missing note" do
     before do
       tool.note = ""
     end
-  end
 
-  it "is valid with no note" do
-    expect(tool.valid?).to eq(false)
+    it "is valid with no note" do
+      expect(tool.valid?).to eq(true)
+    end
   end
 end
