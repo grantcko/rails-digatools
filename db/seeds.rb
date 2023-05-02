@@ -1,12 +1,18 @@
+#### CLEARING DB
+
 puts "Destroying Tools"
 Tool.destroy_all
 puts "Destroying Users\n\n"
 User.destroy_all
 
+#### USERS
+
 grant = User.create!(email: "grant@gmail.com", password: "123123")
 taka = User.create!(email: "taka@gmail.com", password: "123123")
 
 puts "created #{User.all.count} Users"
+
+#### TOOLS
 
 Tool.create!(
   name: "Prompt Generator",
@@ -22,8 +28,23 @@ Tool.create!(
 
 Tool.create!(
   name: "EQ Checker",
-  note: "allows you to upload your audio files and apply eq changes, you can use it to save eq presets fo other computers",
+  note: "allows you to upload your audio files and apply eq changes, you can use it to save eq presets for other computers",
   user: grant,
   internals: ['auto_equalizer']
+)
+
+Tool.create!(
+  name: "Color Picker",
+  note: "Simple circle color picker. Copy the color code result",
+  user: grant,
+  internals: ['color_picker']
+)
+
+Tool.create!(
+  name: "Photography Creative Device",
+  note: "Simple circle color picker. Copy the color code result",
+  user: grant,
+  links: ["https://letmegooglethat.com/?q=top+10+photography+techniques"],
+  internals: ['custom']
 )
 puts "created #{Tool.all.count} Tools"
