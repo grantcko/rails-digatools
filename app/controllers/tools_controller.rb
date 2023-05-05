@@ -3,4 +3,8 @@ class ToolsController < ApplicationController
   def index
     @tools = current_user.tools
   end
+
+  def show
+    @tool = Tool.find(params[:id])
+  end
 end
