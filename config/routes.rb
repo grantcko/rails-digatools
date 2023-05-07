@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   root to: "pages#home"
   # get '/tools', to: "tools#index", as: :tools
   # get '/tools/:id', to: "tools#"
-  resources :tools, only: %i[index show]
+  resources :tools, only: %i[index show update]
 end
