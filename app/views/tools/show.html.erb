@@ -1,15 +1,6 @@
 <div class="full-tool-container">
   <div class="tool-container">
+    <%= render "#{@tool.internals[0]}" %>
   </div>
-  <div class="notes">
-    <div class="links">
-      <p class="p-0 m-0">LINKS</p>
-      <ul class="px-0">
-        <% @tool.links.each do |link| %>
-          <%= link_to link, link %>
-        <% end %>
-      </ul>
-    </div>
-    <%= render 'notes' %>
-  </div>
+  <%= render 'notes' %>
 </div>

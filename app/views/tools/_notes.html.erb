@@ -1,2 +1,16 @@
-<p>As a user I can save any notes I have about this tool here.</p>
-<p>This should save it to the notes column in the database. I've got to use some javascript here</p>
+<div class="notes">
+  <div class="links">
+    <p class="p-0 m-0">LINKS</p>
+    <ul class="px-0">
+      <% @tool.links.each do |link| %>
+        <%= link_to URI.parse(link).host.gsub(/^www\./, ''), link %>
+      <% end %>
+    </ul>
+  </div>
+  <%= form_with(model: @tool, html: { style: 'height: 100%' }) do |form| %>
+    <div class="note-input">
+      <%= form.text_area :note, class: 'note-text', cols: 30, rows: 10, placeholder: 'write ideas and notes here...' %>
+      <%= form.submit 'Save notes' %>
+    </div>
+  <% end %>
+</div>
