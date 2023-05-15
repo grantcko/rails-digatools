@@ -18,6 +18,7 @@ export default class extends Controller {
         console.log("The element with the ID 'picker-box' does not exist.");
       }
     }
+
     picker.addEventListener("click", randomizeColor);
   }
 }
