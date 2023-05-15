@@ -1,3 +1,9 @@
-<div class="picker-box" data-controller="picker" id="picker-box">
-  <p class="text-black-boxed" id="hex-code">#ff0000</p>
+<div class="picker">
+  <div class="hex-copy-bar">
+    <p class="copy-notification">click to copy</p>
+    <p class="hex-code" id="hex-code">#ff0000</p>
+    <p class="copy-notification">click to copy</p>
+  </div>
+  <%= image_tag "color-picker.gif", alt: "color-picker", style: "width: 144px; bottom: 0px; position: absolute;" %>
 </div>
+<div class="picker-box" data-controller="picker" id="picker-box"></div>
