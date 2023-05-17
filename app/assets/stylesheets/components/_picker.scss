@@ -35,7 +35,7 @@
   transform: translate(-50%, -50%);
   z-index: 1;
   height: 32%;
-  width: 40%;
+  width: 32%;
   background-color: white;
 }
 
@@ -48,4 +48,34 @@
   text-align: center;
   margin: 0 auto;
   width: 100%;
+}
+
+.picker-container {
+  height: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
+
+.colorwheel {
+  // background-color: rgb(255, 0, 0);
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+}
+
+.luminosity-bar {
+  background: linear-gradient(white, black);
+  border-style: solid;
+  border-color: rgb(0, 0, 0);
+  height: 128px;
+  width: 24px;
+}
+
+.luminosity-bar {
+  background: linear-gradient(white, black);
+  border-style: solid;
+  border-color: black;
+  height: 128px;
+  width: 24px;
 }
