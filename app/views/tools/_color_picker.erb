@@ -1,3 +1,12 @@
-<div class="picker-box" data-controller="picker" id="picker-box">
-  <p class="text-black-boxed" id="hex-code">#ff0000</p>
+<div class="picker">
+  <div class="hex-copy-bar">
+    <p class="copy-notification">⎗</p>
+    <p class="hex-code" id="hex-code">#ff0000</p>
+    <p class="copy-notification">⎗</p>
+  </div>
+  <div class="picker-container">
+    <%= image_tag "color_wheel", class: "colorwheel" %>
+    <%# <div class="luminosity-bar"></div> %>
+  </div>
 </div>
+<div class="picker-box" data-controller="picker" id="picker-box"></div>
