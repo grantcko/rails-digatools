@@ -93,12 +93,36 @@ RSpec.describe Tool, type: :model do
 
   describe "#internal_array?" do
     context "with internals set to array" do
-      before do
-        tool.internals = ["#$%^"]
-      end
+      let(:internals) { ["#$%^"] }
 
       it "returns true" do
         expect(tool.internal_array?).to eq(true)
+      end
+    end
+  end
+
+  describe "#equalize_audio" do
+    let(:audio_input) { FFMPEG::Movie.new("input.wav") }
+    let(:direction) { "radio" }
+
+    it "should transcode the input file to the output file with the specified EQ settings" do
+      # Call the `equalize_audio` method.
+      equalize_audio(audio_input, direction)
+
+      # Assert that the output file was created.
+      expect(File.exist?("input.wav_output")).to be true
+
+      # Assert that the output file contains the expected audio.
+      expect(FFMPEG::Movie.new("input.wav_output").audio_track).to eq(direction)
+    end
+
+    context "when the direction is invalid" do
+      it "should raise an error" do
+        # Set an invalid direction.
+        direction = "invalid"
+
+        # Call the `equalize_audio` method.
+        expect { equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
   end
