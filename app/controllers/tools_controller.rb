@@ -1,3 +1,5 @@
+require 'streamio-ffmpeg'
+
 class ToolsController < ApplicationController
   before_action :authenticate_user!
   def index
@@ -27,6 +29,15 @@ class ToolsController < ApplicationController
       status :unprocessable_entity
       render 'edit'
     end
+  end
+
+  # Get audio file and apply eq changes based on direction
+  def equalize_audio(audio_input, direction)
+    # directions: radio, highpass, lowpass, vocal
+    # case direction then apply changes
+    # return changed file
+    # return error if invalid direction
+    # return error if no file
   end
 
   private
