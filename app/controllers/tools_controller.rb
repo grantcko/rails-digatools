@@ -49,11 +49,15 @@ class ToolsController < ApplicationController
       # apply HIGHPASS changes with ffmpeg cli (both channels, at 0Hz, 3000Hz wide, -96dB )
       system("ffmpeg -i #{audio_input} -af 'anequalizer=c0 f=0 w=3000 g=-96 t=2|c1 f=0 w=3000 g=-96 t=2' storage/equalized_audio/#{output_file_name}")
     when EQ_DIRECTIONS[1]
-      # apply highpass changes
+      # apply RADIO changes with ffmpeg cli (both channels, at Hz, Hz wide, -dB )
+      system("ffmpeg -i #{audio_input} -af 'anequalizer=c0 f=0 w=2500 g=-96 t=2|c1 f=0 w=2500 g=-96 t=2|c0 f=15000 w=16000 g=-96 t=2|c1 f=15000 w=16000 g=-96 t=2' storage/equalized_audio/#{output_file_name}")
+      # system('ffmpeg -i audio_input.mp3 -af "" audio_output_lowpass.mp3')
     when EQ_DIRECTIONS[2]
       # apply lowpass changes
+      system("ffmpeg -i #{audio_input} -af 'anequalizer=c0 f=15000 w=16000 g=-96 t=2|c1 f=15000 w=16000 g=-96 t=2' storage/equalized_audio/#{output_file_name}")
     when EQ_DIRECTIONS[3]
       # apply vocal changes
+      system("ffmpeg -i #{audio_input} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' storage/equalized_audio/#{output_file_name}")
     end
   end
 
