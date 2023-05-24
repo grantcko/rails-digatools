@@ -46,8 +46,8 @@ class ToolsController < ApplicationController
     when EQ_DIRECTIONS[0]
       # apply radio changes
       # audio_input()
-      # options = { audio_filter: 'equalizer=f=1000:t=h:width_type=h:width=200:g=10' }
-      # movie.transcode(output_file_name, options)
+      options = { audio_filter: 'equalizer=f=1000:t=h:width_type=h:width=200:g=10' }
+      audio_input.transcode("storage/equalized_audio/#{output_file_name}", options)
     when EQ_DIRECTIONS[1]
       # apply highpass changes
     when EQ_DIRECTIONS[2]
