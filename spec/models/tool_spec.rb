@@ -109,31 +109,93 @@ RSpec.describe Tool, type: :model do
     let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
     let(:direction) { :radio }
 
-    it "should return an audio file with same extension" do
-      # Call the `equalize_audio` method.
-      controller.equalize_audio(audio_input, direction)
-
-      # Assert that the output file was created.
-      expect(File.exist?("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3")).to be true
-    end
-
     context "when the direction is invalid" do
       it "should raise an error" do
-        # Set an invalid direction.
-        direction = "invalid"
-
-        # Call the `equalize_audio` method.
+        direction = :invalid
         expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
 
     context "when the audio_input is invalid" do
       it "should raise an error" do
-        # Set an invalid audio.
         audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
-
-        # Call the `equalize_audio` method.
         expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "when the direction is radio" do
+      it "should return an audio file with same extension" do
+        # Call the `equalize_audio` method.
+        controller.equalize_audio(audio_input, :radio)
+        file = "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3"
+
+        # Assert that the output file was created.
+        expect(File.exist?(file)).to be true
+        Open3.popen3("rm #{file}") do |stdin, stdout, stderr, wait_thr|
+          # Check if the command was successful
+          if wait_thr.value.success?
+            puts "File deleted successfully"
+          else
+            puts "Error deleting file: #{stderr.read}"
+          end
+        end
+      end
+    end
+
+    context "when the direction is highpass" do
+      it "should return an audio file with same extension" do
+        # Call the `equalize_audio` method.
+        controller.equalize_audio(audio_input, :highpass)
+        file = "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3"
+
+        # Assert that the output file was created.
+        expect(File.exist?(file)).to be true
+        Open3.popen3("rm #{file}") do |stdin, stdout, stderr, wait_thr|
+          # Check if the command was successful
+          if wait_thr.value.success?
+            puts "File deleted successfully"
+          else
+            puts "Error deleting file: #{stderr.read}"
+          end
+        end
+      end
+    end
+
+    context "when the direction is lowpass" do
+      it "should return an audio file with same extension" do
+        # Call the `equalize_audio` method.
+        controller.equalize_audio(audio_input, :lowpass)
+        file = "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3"
+
+        # Assert that the output file was created.
+        expect(File.exist?(file)).to be true
+        Open3.popen3("rm #{file}") do |stdin, stdout, stderr, wait_thr|
+          # Check if the command was successful
+          if wait_thr.value.success?
+            puts "File deleted successfully"
+          else
+            puts "Error deleting file: #{stderr.read}"
+          end
+        end
+      end
+    end
+
+    context "when the direction is vocal" do
+      it "should return an audio file with same extension" do
+        # Call the `equalize_audio` method.
+        controller.equalize_audio(audio_input, :vocal)
+        file = "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3"
+
+        # Assert that the output file was created.
+        expect(File.exist?(file)).to be true
+        Open3.popen3("rm #{file}") do |stdin, stdout, stderr, wait_thr|
+          # Check if the command was successful
+          if wait_thr.value.success?
+            puts "File deleted successfully"
+          else
+            puts "Error deleting file: #{stderr.read}"
+          end
+        end
       end
     end
   end
