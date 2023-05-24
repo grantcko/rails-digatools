@@ -106,12 +106,14 @@ RSpec.describe Tool, type: :model do
 
   describe "#equalize_audio" do
     let(:controller) { ToolsController.new }
-    let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
+    # let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
+    let(:audio_input) { "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3" }
     let(:direction) { :radio }
 
     context "when the audio_input is invalid" do
       it "should raise an error" do
-        audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
+        # audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
+        audio_input = "/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov"
         expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
@@ -127,7 +129,8 @@ RSpec.describe Tool, type: :model do
       it "should create a new audio file in storage" do
         # Call the `equalize_audio` method.
         controller.equalize_audio(audio_input, :radio)
-        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/storage/equalized_audio/audio_input.mp3_output.mp3"
+        # output_file_path = "/Users/granthall/code/grantcko/rails-digatools/storage/equalized_audio/audio_input.mp3_output.mp3"
+        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/storage/equalized_audio/#{File.basename(audio_input)}_output.mp3"
 
         # Assert that the output file was created.
         expect(File.exist?(output_file_path)).to be true
@@ -148,11 +151,13 @@ RSpec.describe Tool, type: :model do
       it "should create a new audio file in storage" do
         # Call the `equalize_audio` method.
         controller.equalize_audio(audio_input, :highpass)
-        file = "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3"
+        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/storage/equalized_audio/#{File.basename(audio_input)}_output.mp3"
 
         # Assert that the output file was created.
-        expect(File.exist?(file)).to be true
-        Open3.popen3("rm #{file}") do |stdin, stdout, stderr, wait_thr|
+        expect(File.exist?(output_file_path)).to be true
+
+        # Delete the file
+        Open3.popen3("rm #{output_file_path}") do |stdin, stdout, stderr, wait_thr|
           # Check if the command was successful
           if wait_thr.value.success?
             puts "File deleted successfully"
