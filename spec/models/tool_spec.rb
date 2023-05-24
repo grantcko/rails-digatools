@@ -109,16 +109,16 @@ RSpec.describe Tool, type: :model do
     let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
     let(:direction) { :radio }
 
-    context "when the direction is invalid" do
+    context "when the audio_input is invalid" do
       it "should raise an error" do
-        direction = :invalid
+        audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
         expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
 
-    context "when the audio_input is invalid" do
+    context "when the direction is invalid" do
       it "should raise an error" do
-        audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
+        direction = :invalid
         expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
