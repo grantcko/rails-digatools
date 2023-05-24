@@ -1,4 +1,7 @@
 require 'rails_helper'
+require 'streamio-ffmpeg'
+require 'open3'
+require_relative '../spec_methods'
 
 RSpec.describe Tool, type: :model do
   let(:tool) {
@@ -102,18 +105,16 @@ RSpec.describe Tool, type: :model do
   end
 
   describe "#equalize_audio" do
-    let(:audio_input) { FFMPEG::Movie.new("input.wav") }
-    let(:direction) { "radio" }
+    let(:controller) { ToolsController.new }
+    let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
+    let(:direction) { :radio }
 
-    it "should transcode the input file to the output file with the specified EQ settings" do
+    it "should return an audio file with same extension" do
       # Call the `equalize_audio` method.
-      equalize_audio(audio_input, direction)
+      controller.equalize_audio(audio_input, direction)
 
       # Assert that the output file was created.
-      expect(File.exist?("input.wav_output")).to be true
-
-      # Assert that the output file contains the expected audio.
-      expect(FFMPEG::Movie.new("input.wav_output").audio_track).to eq(direction)
+      expect(File.exist?("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input_output.mp3")).to be true
     end
 
     context "when the direction is invalid" do
@@ -122,7 +123,17 @@ RSpec.describe Tool, type: :model do
         direction = "invalid"
 
         # Call the `equalize_audio` method.
-        expect { equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
+        expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
+      end
+    end
+
+    context "when the audio_input is invalid" do
+      it "should raise an error" do
+        # Set an invalid audio.
+        audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
+
+        # Call the `equalize_audio` method.
+        expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
   end
