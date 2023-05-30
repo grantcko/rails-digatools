@@ -13,7 +13,11 @@ class ToolsController < ApplicationController
     @select_eq_direction = params[:direction]
     @select_audio_input = params[:file]
     if !@select_eq_direction.nil? || !@select_audio_input.nil?
-      @eq_method_test = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
+      @output = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
+      full_path = "#{Rails.root}/#{@output}"
+      send_file(full_path)
+      # erase file
+      system("rm #{full_path}")
     end
   end
 
@@ -61,19 +65,24 @@ class ToolsController < ApplicationController
     case direction
     when EQ_DIRECTIONS[0] # highpass
       # apply HIGHPASS changes with ffmpeg cli (both channels, at 0Hz, 3000Hz wide, -96dB )
-      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=0 w=3000 g=-96 t=2|c1 f=0 w=3000 g=-96 t=2' storage/equalized_audio/#{output_file_name}")
+      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=0 w=3000 g=-96 t=2|c1 f=0 w=3000 g=-96 t=2' public/equalized_audio/#{output_file_name}")
     when EQ_DIRECTIONS[1] # radio
       # apply RADIO changes with ffmpeg cli (both channels, at Hz, Hz wide, -dB )
-      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=0 w=2500 g=-96 t=2|c1 f=0 w=2500 g=-96 t=2|c0 f=15000 w=16000 g=-96 t=2|c1 f=15000 w=16000 g=-96 t=2' storage/equalized_audio/#{output_file_name}")
+      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=0 w=2500 g=-96 t=2|c1 f=0 w=2500 g=-96 t=2|c0 f=15000 w=16000 g=-96 t=2|c1 f=15000 w=16000 g=-96 t=2' public/equalized_audio/#{output_file_name}")
     when EQ_DIRECTIONS[2] # lowpass
       # apply lowpass changes
-      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=15000 w=16000 g=-96 t=2|c1 f=15000 w=16000 g=-96 t=2' storage/equalized_audio/#{output_file_name}")
+      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=15000 w=16000 g=-96 t=2|c1 f=15000 w=16000 g=-96 t=2' public/equalized_audio/#{output_file_name}")
     when EQ_DIRECTIONS[3] # vocal
       # apply vocal changes
-      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' storage/equalized_audio/#{output_file_name}")
+      system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' public/equalized_audio/#{output_file_name}")
     end
-    return "storage/equalized_audio/#{output_file_name}"
+    return "public/equalized_audio/#{output_file_name}"
   end
+
+  # def download(file_path)
+  #   full_path = "#{Rails.root}/#{file_path}"
+  #   # raise unless send_file(full_path)
+  # end
 
   private
 
