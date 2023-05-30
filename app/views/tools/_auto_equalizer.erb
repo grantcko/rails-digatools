@@ -1,3 +1,15 @@
-<form action="">
-  <input type="file">
-</form>
+<div class="position-absolute top-50 start-50 translate-middle">
+  <form name="equalize" enctype="multipart/form-data" method="post" class="mb-5">
+    <fieldset>
+      <legend>Please select an EQ type</legend>
+      <div>
+        <% @eq_directions.each do |direction| %>
+          <input type="radio" id="<%= direction %>" name="direction" value="<%= direction %>">
+          <label for="<%= direction %>"><%= direction %></label>
+        <% end %>
+      </div>
+    </fieldset>
+    <input type="file" name="file" >
+    <input type="submit" value="Equalize">
+  </form>
+</div>
