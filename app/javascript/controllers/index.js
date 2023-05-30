@@ -6,3 +6,5 @@ import { application } from "./application"
 
 import PickerController from "./picker_controller"
 application.register("picker", PickerController)
+import EqualizerController from "./equalizer_controller"
+application.register("equalizer", EqualizerController)
