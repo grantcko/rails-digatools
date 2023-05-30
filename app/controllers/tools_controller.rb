@@ -15,7 +15,8 @@ class ToolsController < ApplicationController
     if !@select_eq_direction.nil? || !@select_audio_input.nil?
       @output = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
       full_path = "#{Rails.root}/#{@output}"
-      send_file(full_path)
+      send_file full_path, type: 'audio/wav'
+      # raise
       # erase file
       system("rm #{full_path}")
     end
