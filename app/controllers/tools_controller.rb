@@ -9,6 +9,12 @@ class ToolsController < ApplicationController
 
   def show
     @tool = Tool.find(params[:id])
+    @eq_directions = EQ_DIRECTIONS
+    @select_eq_direction = params[:direction]
+    @select_audio_input = params[:file]
+    if !@select_eq_direction.nil? || !@select_audio_input.nil?
+      equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
+    end
   end
 
   def create
