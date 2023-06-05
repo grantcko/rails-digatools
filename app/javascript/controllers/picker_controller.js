@@ -5,6 +5,7 @@ const faker = require('faker');
 export default class extends Controller {
   connect() {
     const picker = document.getElementById("picker-box");
+    console.log(picker);
     const hexCopyBar = document.querySelector(".hex-copy-bar");
     const hexCode = document.getElementById("hex-code");
     const copyNotifications = document.querySelectorAll(".copy-notification");

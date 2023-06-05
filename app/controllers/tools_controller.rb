@@ -10,16 +10,19 @@ class ToolsController < ApplicationController
   def show
     @tool = Tool.find(params[:id])
     @eq_directions = EQ_DIRECTIONS
-    return unless !@select_eq_direction.nil? || !@select_audio_input.nil?
 
-    if params[:direction].present? && params[:file].present?
+    if params[:direction].present?
       @select_eq_direction = params[:direction]
+    end
+
+    if params[:file].present?
       @select_audio_input = params[:file]
+    end
+
+    if @select_eq_direction && @select_audio_input
+      @output_path = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
+      gon.output_path = @output_path
       raise
-      gon.output_path = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
-      redirect_to show_path
-    else
-      redirect_to show_path, status: :unprocessable_entity
     end
   end
 
