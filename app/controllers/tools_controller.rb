@@ -10,11 +10,16 @@ class ToolsController < ApplicationController
   def show
     @tool = Tool.find(params[:id])
     @eq_directions = EQ_DIRECTIONS
-    @select_eq_direction = params[:direction]
-    @select_audio_input = params[:file]
-    if !@select_eq_direction.nil? || !@select_audio_input.nil?
-      @output = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
-      @full_path = "#{Rails.root}/#{@output}"
+    return unless !@select_eq_direction.nil? || !@select_audio_input.nil?
+
+    if params[:direction].present? && params[:file].present?
+      @select_eq_direction = params[:direction]
+      @select_audio_input = params[:file]
+      raise
+      gon.output_path = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
+      redirect_to show_path
+    else
+      redirect_to show_path, status: :unprocessable_entity
     end
   end
 
@@ -72,7 +77,7 @@ class ToolsController < ApplicationController
       # apply vocal changes
       system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' public/equalized_audio/#{output_file_name}")
     end
-    return "public/equalized_audio/#{output_file_name}"
+    return "equalized_audio/#{output_file_name}"
   end
 
   private
