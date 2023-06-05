@@ -11,12 +11,12 @@ export default class extends Controller {
     const eqForm = document.getElementById("equalize");
 
     // run fuction when user submits the form
-    eqForm.addEventListener("submit", link_file);
+    link_file();
 
     function link_file() {
       console.log("submitted");
       downloadLink.textContent = 'DOWNLOAD';
-      downloadLink.href = `equalized_audio/${gon.output_path}`;
+      downloadLink.href = "";
       console.log(downloadLink);
       // append a download link to the new file
       container.insertBefore(downloadLink, eqForm)

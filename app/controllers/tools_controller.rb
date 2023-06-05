@@ -22,7 +22,6 @@ class ToolsController < ApplicationController
     if @select_eq_direction && @select_audio_input
       @output_path = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
       gon.output_path = @output_path
-      raise
     end
   end
 
