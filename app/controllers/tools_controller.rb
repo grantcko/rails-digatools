@@ -15,9 +15,6 @@ class ToolsController < ApplicationController
     if !@select_eq_direction.nil? || !@select_audio_input.nil?
       @output = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
       @full_path = "#{Rails.root}/#{@output}"
-      send_file @full_path, type: 'audio/wav'
-      # erase file
-      system("rm #{full_path}")
     end
   end
 
@@ -42,8 +39,7 @@ class ToolsController < ApplicationController
     end
   end
 
-  # Get audio file and apply eq changes based on direction
-  def equalize_audio(audio_input, direction)
+  def equalize_audio(audio_input, direction) # Get audio file and apply eq changes based on direction
     # define file name as the path of the input unless input is a string
     if audio_input.is_a?(String)
       file_name = audio_input
@@ -78,11 +74,6 @@ class ToolsController < ApplicationController
     end
     return "public/equalized_audio/#{output_file_name}"
   end
-
-  # def download(file_path)
-  #   full_path = "#{Rails.root}/#{file_path}"
-  #   # raise unless send_file(full_path)
-  # end
 
   private
 

@@ -10,6 +10,12 @@
       </div>
     </fieldset>
     <input type="file" name="file" >
+    <%# trigger a javascript fuction that submits the form and presents a download link %>
+    <%# fuction should then delete the file %>
     <input type="submit" value="Equalize">
   </form>
+  <!--
+  #### this link is available once the file is created
+  <%= link_to "download", "/equalized_audio/[path_to_new_file]" %>
+  -->
 </div>
