@@ -2,6 +2,8 @@ require 'streamio-ffmpeg'
 
 class ToolsController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
+
   def index
     @tools = current_user.tools
   end
@@ -24,7 +26,8 @@ class ToolsController < ApplicationController
 
     # equalize audio and return output if valid
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
-      return Tool.equalize(input, direction)
+      output = Tool.equalize(input, direction)
+      render json: { output: output }
       # output = Tool.equalize(input, direction)
       # redirect_to "/download?file=#{output}"
     else
