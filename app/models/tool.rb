@@ -36,23 +36,23 @@ class Tool < ApplicationRecord
   end
 
   def self.equalize(audio_input, direction) # Get audio file and apply eq changes based on direction
-    # define file name as the path of the input unless input is a string
-    if audio_input.is_a?(String)
+    if audio_input.is_a?(String) # define input file name for ffmpeg transcoding
       file_name = audio_input
     else
       file_name = audio_input.path
     end
 
-    # define basename and file extension
-    file_base_name = File.basename(audio_input)
-    file_ext = File.extname(file_base_name)
-
-    # append "_output" to the file
-    output_file_name = "#{file_base_name}_output.#{file_ext}"
+    # define output name
+    og_filename = File.basename(audio_input)
+    file_base_name = File.basename(audio_input.original_filename, ".*")
+    file_ext = File.extname(og_filename)
+    random_id = "#{rand.to_s[2..6]}"
+    output_file_name = "#{file_base_name}_output_#{random_id}#{file_ext}"
 
     # return error if invalid direction or audio_input
     raise ArgumentError.new("Invalid audio_input") unless Tool.valid_audio_input?(audio_input)
     raise ArgumentError.new("Invalid direction") unless Tool.valid_direction?(direction)
+
     # apply eq changes based on direction
     case direction
     when EQ_DIRECTIONS[0] # highpass
@@ -68,6 +68,7 @@ class Tool < ApplicationRecord
       # apply vocal changes
       system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' public/equalized_audio/#{output_file_name}")
     end
+
     return output_file_name
   end
 end

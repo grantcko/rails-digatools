@@ -18,11 +18,15 @@ class ToolsController < ApplicationController
   end
 
   def equalize_audio
+    # get direction and input
     direction = params[:direction].to_sym if params[:direction].present?
     input = params[:file] if params[:file].present?
 
+    # equalize audio and return output if valid
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
-      Tool.equalize(input, direction)
+      return Tool.equalize(input, direction)
+      # output = Tool.equalize(input, direction)
+      # redirect_to "/download?file=#{output}"
     else
       redirect_to tool_path(params[:tool_id]), status: :unprocessable_entity
     end
