@@ -9,18 +9,19 @@ export default class extends Controller {
     const downloadLink = document.createElement('a');
     // select auto equalizer form
     const eqForm = document.getElementById("equalize");
-
-    // run fuction when user submits the form
-    link_file();
+    const submitButton = document.getElementById("eq-submit");
 
     function link_file() {
       console.log("submitted");
       downloadLink.textContent = 'DOWNLOAD';
-      downloadLink.href = "";
+      downloadLink.href = "/download/?file=RackMultipart20230605-4357-6wchad.wav_output.wav";
       console.log(downloadLink);
       // append a download link to the new file
       container.insertBefore(downloadLink, eqForm)
       // delete the file after downloaded
     };
+
+    // run fuction when user submits the form
+    submitButton.addEventListener("click", link_file,);
   }
 }

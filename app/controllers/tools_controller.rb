@@ -20,8 +20,17 @@ class ToolsController < ApplicationController
     end
 
     if @select_eq_direction && @select_audio_input
-      @output_path = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
-      gon.output_path = @output_path
+      output_path = equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
+      puts "+++++++++"
+      send_file "public/equalized_audio/#{output_path}", disposition: "attachment"
+
+      # puts redirect_to "/equalized_audio/#{output_path}"
+      # puts send_file "public/equalized_audio/#{output_path}"
+      # send_file Rails.root.join("public", "equalized_audio", output_path)
+      # redirect_to "/download?file=#{output_path}"
+      # puts redirect_to "/equalized_audio/#{@output_path}"
+
+      puts "+++++++++"
     end
   end
 
@@ -44,6 +53,11 @@ class ToolsController < ApplicationController
       status :unprocessable_entity
       render 'edit'
     end
+  end
+
+  def download
+    # output_path = params[:file]
+    # send_file "public/equalized_audio/#{output_path}", disposition: "attachment"
   end
 
   def equalize_audio(audio_input, direction) # Get audio file and apply eq changes based on direction
@@ -79,7 +93,7 @@ class ToolsController < ApplicationController
       # apply vocal changes
       system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' public/equalized_audio/#{output_file_name}")
     end
-    return "equalized_audio/#{output_file_name}"
+    return output_file_name
   end
 
   private

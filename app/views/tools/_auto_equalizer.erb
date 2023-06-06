@@ -1,8 +1,9 @@
 <div id="equalizer-container" data-controller="equalizer" class="position-absolute top-50 start-50 translate-middle">
   <!--
   #### this link is available once the file is created
+  <%# <a href="/equalized_audio/RackMultipart20230605-4357-90bw3j.wav_output.wav">hardcode</a> %>
   -->
-  <a href="/equalized_audio/RackMultipart20230605-4357-90bw3j.wav_output.wav">hardcode</a>
+  <%= link_to "dl", @test %>
   <form name="equalize" enctype="multipart/form-data" id="equalize" method="post" class="mb-5">
     <fieldset>
       <legend>Please select an EQ type</legend>
@@ -16,6 +17,6 @@
     <input type="file" name="file" >
     <%# trigger a javascript fuction that submits the form and presents a download link %>
     <%# then delete the file %>
-    <input type="submit" value="Equalize">
+    <input type="submit" id="eq-submit" value="Equalize">
   </form>
 </div>
