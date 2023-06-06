@@ -3,6 +3,7 @@ require 'streamio-ffmpeg'
 class ToolsController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
+  # after_action :remove_file, only: :download
 
   def index
     @tools = current_user.tools
@@ -17,6 +18,7 @@ class ToolsController < ApplicationController
     # /download => downloads file from filepath stored in the params
     output_path = params[:file]
     send_file "public/equalized_audio/#{output_path}", disposition: "attachment"
+    RemoveFileJob.set(wait: 1.minute).perform_later(output_path)
   end
 
   def equalize_audio
@@ -28,8 +30,6 @@ class ToolsController < ApplicationController
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
       output = Tool.equalize(input, direction)
       render json: { output: output }
-      # output = Tool.equalize(input, direction)
-      # redirect_to "/download?file=#{output}"
     else
       redirect_to tool_path(params[:tool_id]), status: :unprocessable_entity
     end
@@ -61,4 +61,8 @@ class ToolsController < ApplicationController
   def tool_params
     params.require(:tool).permit(:name, :note, :internals, :links)
   end
+
+  # def remove_file
+  #   `rm public/equalized_audio/#{params[:file]}`
+  # end
 end
