@@ -104,7 +104,7 @@ RSpec.describe Tool, type: :model do
     end
   end
 
-  describe "#equalize_audio" do
+  describe "#equalize" do
     let(:controller) { ToolsController.new }
     # let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
     let(:audio_input) { "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3" }
@@ -114,22 +114,21 @@ RSpec.describe Tool, type: :model do
       it "should raise an error" do
         # audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
         audio_input = "/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov"
-        expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
+        expect { Tool.equalize(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
 
     context "when the direction is invalid" do
       it "should raise an error" do
         direction = :invalid
-        expect { controller.equalize_audio(audio_input, direction) }.to raise_error(ArgumentError)
+        expect { Tool.equalize(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
 
     context "when the direction is radio" do
       it "should create a new audio file in public" do
-        # Call the `equalize_audio` method.
-        controller.equalize_audio(audio_input, :radio)
-        # output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/audio_input.mp3_output.mp3"
+        # Call the `equalize` method.
+        Tool.equalize(audio_input, :radio)
         output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
 
         # Assert that the output file was created.
@@ -149,8 +148,8 @@ RSpec.describe Tool, type: :model do
 
     context "when the direction is highpass" do
       it "should create a new audio file in public" do
-        # Call the `equalize_audio` method.
-        controller.equalize_audio(audio_input, :highpass)
+        # Call the `equalize` method.
+        Tool.equalize(audio_input, :highpass)
         output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
 
         # Assert that the output file was created.
@@ -170,8 +169,8 @@ RSpec.describe Tool, type: :model do
 
     context "when the direction is lowpass" do
       it "should create a new audio file in public" do
-        # Call the `equalize_audio` method.
-        controller.equalize_audio(audio_input, :lowpass)
+        # Call the `equalize` method.
+        Tool.equalize(audio_input, :lowpass)
         output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
 
         # Assert that the output file was created.
@@ -191,8 +190,8 @@ RSpec.describe Tool, type: :model do
 
     context "when the direction is vocal" do
       it "should create a new audio file in public" do
-        # Call the `equalize_audio` method.
-        controller.equalize_audio(audio_input, :vocal)
+        # Call the `equalize` method.
+        Tool.equalize(audio_input, :vocal)
         output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
 
         # Assert that the output file was created.

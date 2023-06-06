@@ -1,4 +1,6 @@
+
 class Tool < ApplicationRecord
+  EQ_DIRECTIONS = %i[highpass radio lowpass vocal]
   belongs_to :user
 
   validates :name, presence: true
@@ -18,13 +20,16 @@ class Tool < ApplicationRecord
   end
 
   def self.valid_direction?(direction)
+    # raise
     return false if EQ_DIRECTIONS.exclude?(direction)
 
     return true
   end
 
-  def self.valid_audio_input?(file_ext)
-    valid_extensions = %w[wav aac mp3 m4a]
+  def self.valid_audio_input?(file)
+    file_ext = File.extname(File.basename(file))
+    valid_extensions = %w[.wav .aac .mp3 .m4a]
+    # raise
     return false if valid_extensions.exclude?(file_ext)
 
     return true
@@ -40,13 +45,13 @@ class Tool < ApplicationRecord
 
     # define basename and file extension
     file_base_name = File.basename(audio_input)
-    file_ext = file_base_name.match(/\.(?<extension>\w+)$/)[:extension]
+    file_ext = File.extname(file_base_name)
 
     # append "_output" to the file
     output_file_name = "#{file_base_name}_output.#{file_ext}"
 
     # return error if invalid direction or audio_input
-    raise ArgumentError.new("Invalid audio_input") unless Tool.valid_audio_input?(file_ext)
+    raise ArgumentError.new("Invalid audio_input") unless Tool.valid_audio_input?(audio_input)
     raise ArgumentError.new("Invalid direction") unless Tool.valid_direction?(direction)
     # apply eq changes based on direction
     case direction

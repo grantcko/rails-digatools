@@ -1,5 +1,4 @@
 require 'streamio-ffmpeg'
-EQ_DIRECTIONS = %i[highpass radio lowpass vocal]
 
 class ToolsController < ApplicationController
   before_action :authenticate_user!
@@ -9,28 +8,24 @@ class ToolsController < ApplicationController
 
   def show
     @tool = Tool.find(params[:id])
-    @eq_directions = EQ_DIRECTIONS
-
-    if params[:direction].present?
-      @select_eq_direction = params[:direction]
-    end
-
-    if params[:file].present?
-      @select_audio_input = params[:file]
-    end
-
-    if @select_eq_direction && @select_audio_input
-      equalize_audio(@select_audio_input, @select_eq_direction.to_sym)
-    end
+    @eq_directions = Tool::EQ_DIRECTIONS
   end
 
   def download
+    # /download => downloads file from filepath stored in the params
     output_path = params[:file]
     send_file "public/equalized_audio/#{output_path}", disposition: "attachment"
   end
 
-  def equalize_audio(audio_input, direction)
-    Tool.equalize(audio_input, direction)
+  def equalize_audio
+    direction = params[:direction].to_sym if params[:direction].present?
+    input = params[:file] if params[:file].present?
+
+    if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
+      Tool.equalize(input, direction)
+    else
+      redirect_to tool_path(params[:tool_id]), status: :unprocessable_entity
+    end
   end
 
   def create
