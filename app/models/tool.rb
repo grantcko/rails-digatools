@@ -16,4 +16,17 @@ class Tool < ApplicationRecord
     end
     true
   end
+
+  def self.valid_direction?(direction)
+    return false if EQ_DIRECTIONS.exclude?(direction)
+
+    return true
+  end
+
+  def self.valid_audio_input?(file_ext)
+    valid_extensions = %w[wav aac mp3 m4a]
+    return false if valid_extensions.exclude?(file_ext)
+
+    return true
+  end
 end
