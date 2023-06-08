@@ -16,9 +16,13 @@ class ToolsController < ApplicationController
 
   def download
     # /download => downloads file from filepath stored in the params
-    output_path = params[:file]
-    send_file "public/equalized_audio/#{output_path}", disposition: "attachment"
-    RemoveFileJob.set(wait: 1.minute).perform_later(output_path)
+    output = params[:file]
+    raise
+    if File.file?(output)
+      send_file "public/equalized_audio/#{output}", disposition: "attachment"
+    else
+      redirect_to tool_path(params[:tool_id]), status: "file does not exist"
+    end
   end
 
   def equalize_audio
@@ -29,7 +33,8 @@ class ToolsController < ApplicationController
     # equalize audio and return output if valid
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
       output = Tool.equalize(input, direction)
-      render json: { output: output }
+      RemoveFileJob.set(wait: 5.minutes).perform_later(output)
+      return render json: { output: }
     else
       redirect_to tool_path(params[:tool_id]), status: :unprocessable_entity
     end
