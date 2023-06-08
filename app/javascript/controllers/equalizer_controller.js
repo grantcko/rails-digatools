@@ -39,7 +39,7 @@ export default class extends Controller {
         const url = new URL(window.location.href);
         const tool_id = String(url.pathname).match(/\/tools\/(\d+)/)[1]
 
-        downloadLink.href = `/download/?file=${data.output}&?id=${tool_id}`;
+        downloadLink.href = `/download/?file=${data.output}&id=${tool_id}`;
         console.log(`this is the download link: ${downloadLink}`);
         container.insertBefore(downloadLink, eqForm)
       });
