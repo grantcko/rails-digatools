@@ -1,5 +1,5 @@
-<div class="position-absolute top-50 start-50 translate-middle">
-  <form name="equalize" enctype="multipart/form-data" method="post" class="mb-5">
+<div id="equalizer-container" data-controller="equalizer" class="position-absolute top-50 start-50 translate-middle">
+  <form name="equalize" enctype="multipart/form-data" id="equalize-form" method="post" action="/equalize" class="mb-5">
     <fieldset>
       <legend>Please select an EQ type</legend>
       <div>
@@ -10,6 +10,9 @@
       </div>
     </fieldset>
     <input type="file" name="file" >
-    <input type="submit" value="Equalize">
+    <%# trigger a javascript fuction that submits the form and presents a download link %>
+    <%# then delete the file %>
+    <input type="submit" id="eq-submit" value="Equalize">
+    <input type="hidden" value="<%= @tool.id %>" name="tool_id" />
   </form>
 </div>
