@@ -27,10 +27,12 @@ class Tool < ApplicationRecord
   end
 
   def self.valid_audio_input?(file)
-    file_ext = File.extname(File.basename(file))
+    basename = File.basename(file)
+    puts "###################\n#{basename}"
+    file_ext = File.extname(basename)
     valid_extensions = %w[.wav .aac .mp3 .m4a]
-    # raise
     return false if valid_extensions.exclude?(file_ext)
+    return false if basename.include?(' ')
 
     return true
   end
@@ -50,6 +52,7 @@ class Tool < ApplicationRecord
     output_file_name = "#{file_base_name}_output_#{random_id}#{file_ext}"
 
     # return error if invalid direction or audio_input
+    puts "###################\n#{File.basename(audio_input)}"
     raise ArgumentError.new("Invalid audio_input") unless Tool.valid_audio_input?(audio_input)
     raise ArgumentError.new("Invalid direction") unless Tool.valid_direction?(direction)
 
