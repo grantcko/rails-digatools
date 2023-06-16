@@ -39,14 +39,15 @@ class Tool < ApplicationRecord
 
   def self.equalize(audio_input, direction) # Get audio file and apply eq changes based on direction
     if audio_input.is_a?(String) # define input file name for ffmpeg transcoding
-      file_name = audio_input
+      file_name = audio_input.gsub(" ", "_")
     else
-      file_name = audio_input.path
+      file_name = audio_input.path.gsub(" ", "_")
     end
 
+
     # define output name
-    og_filename = File.basename(audio_input)
-    file_base_name = File.basename(audio_input.original_filename, ".*")
+    og_filename = File.basename(audio_input).gsub(" ", "_")
+    file_base_name = File.basename(audio_input.original_filename, ".*").gsub(" ", "_")
     file_ext = File.extname(og_filename)
     random_id = "#{rand.to_s[2..6]}"
     output_file_name = "#{file_base_name}_output_#{random_id}#{file_ext}"
@@ -72,6 +73,7 @@ class Tool < ApplicationRecord
       system("ffmpeg -i #{file_name} -af 'anequalizer=c0 f=3000 w=2000 g=10 t=2|c1 f=3000 w=2000 g=10 t=2' public/equalized_audio/#{output_file_name}")
     end
 
+    puts "\n+++++++++++++++++++++++++\n#{output_file_name}\n"
     return output_file_name
   end
 end
