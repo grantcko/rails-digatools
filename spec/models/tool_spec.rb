@@ -108,23 +108,17 @@ RSpec.describe Tool, type: :model do
     let(:controller) { ToolsController.new }
     file_data = IO.read('spec/audio_input.mp3')
     tempfile = Tempfile.new('file_name')
-    tempfile.binmode
-    tempfile.write(file_data)
-    tempfile.rewind
+    tempfile.binmode && tempfile.write(file_data) && tempfile.rewind
 
-    uploaded_file = ActionDispatch::Http::UploadedFile.new(
-      tempfile: tempfile,
-      type: 'audio/mpeg',
-      filename: 'original_file_name'
-    )
+    uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, type: 'audio/mpeg', filename: 'original_file_name.mp3')
+    invalid_uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, type: 'video/quicktime', filename: 'original_file_name.mov')
 
     let(:audio_input) { uploaded_file }
     let(:direction) { :radio }
 
     context "when the audio_input is invalid" do
       it "should raise an error" do
-        # audio_input = FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov")
-        audio_input = "/Users/granthall/code/grantcko/rails-digatools/spec/invalid_input.mov"
+        audio_input = invalid_uploaded_file
         expect { Tool.equalize(audio_input, direction) }.to raise_error(ArgumentError)
       end
     end
@@ -139,8 +133,8 @@ RSpec.describe Tool, type: :model do
     context "when the direction is radio" do
       it "should create a new audio file in public" do
         # Call the `equalize` method.
-        Tool.equalize(audio_input, :radio)
-        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
+        output = Tool.equalize(audio_input, :radio)
+        output_file_path = Rails.root.join('public', 'equalized_audio', output)
 
         # Assert that the output file was created.
         expect(File.exist?(output_file_path)).to be true
@@ -149,9 +143,9 @@ RSpec.describe Tool, type: :model do
         Open3.popen3("rm #{output_file_path}") do |stdin, stdout, stderr, wait_thr|
           # Check if the command was successful
           if wait_thr.value.success?
-            puts "File deleted successfully"
+            puts "# File deleted successfully"
           else
-            puts "Error deleting file: #{stderr.read}"
+            puts "# Error deleting file: #{stderr.read}"
           end
         end
       end
@@ -160,8 +154,8 @@ RSpec.describe Tool, type: :model do
     context "when the direction is highpass" do
       it "should create a new audio file in public" do
         # Call the `equalize` method.
-        Tool.equalize(audio_input, :highpass)
-        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
+        output = Tool.equalize(audio_input, :highpass)
+        output_file_path = Rails.root.join('public', 'equalized_audio', output)
 
         # Assert that the output file was created.
         expect(File.exist?(output_file_path)).to be true
@@ -170,9 +164,9 @@ RSpec.describe Tool, type: :model do
         Open3.popen3("rm #{output_file_path}") do |stdin, stdout, stderr, wait_thr|
           # Check if the command was successful
           if wait_thr.value.success?
-            puts "File deleted successfully"
+            puts "# File deleted successfully"
           else
-            puts "Error deleting file: #{stderr.read}"
+            puts "# Error deleting file: #{stderr.read}"
           end
         end
       end
@@ -181,8 +175,8 @@ RSpec.describe Tool, type: :model do
     context "when the direction is lowpass" do
       it "should create a new audio file in public" do
         # Call the `equalize` method.
-        Tool.equalize(audio_input, :lowpass)
-        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
+        output = Tool.equalize(audio_input, :lowpass)
+        output_file_path = Rails.root.join('public', 'equalized_audio', output)
 
         # Assert that the output file was created.
         expect(File.exist?(output_file_path)).to be true
@@ -191,9 +185,9 @@ RSpec.describe Tool, type: :model do
         Open3.popen3("rm #{output_file_path}") do |stdin, stdout, stderr, wait_thr|
           # Check if the command was successful
           if wait_thr.value.success?
-            puts "File deleted successfully"
+            puts "# File deleted successfully"
           else
-            puts "Error deleting file: #{stderr.read}"
+            puts "# Error deleting file: #{stderr.read}"
           end
         end
       end
@@ -202,8 +196,8 @@ RSpec.describe Tool, type: :model do
     context "when the direction is vocal" do
       it "should create a new audio file in public" do
         # Call the `equalize` method.
-        Tool.equalize(audio_input, :vocal)
-        output_file_path = "/Users/granthall/code/grantcko/rails-digatools/public/equalized_audio/#{File.basename(audio_input)}_output.mp3"
+        output = Tool.equalize(audio_input, :vocal)
+        output_file_path = Rails.root.join('public', 'equalized_audio', output)
 
         # Assert that the output file was created.
         expect(File.exist?(output_file_path)).to be true
@@ -212,9 +206,9 @@ RSpec.describe Tool, type: :model do
         Open3.popen3("rm #{output_file_path}") do |stdin, stdout, stderr, wait_thr|
           # Check if the command was successful
           if wait_thr.value.success?
-            puts "File deleted successfully"
+            puts "# File deleted successfully"
           else
-            puts "Error deleting file: #{stderr.read}"
+            puts "# Error deleting file: #{stderr.read}"
           end
         end
       end

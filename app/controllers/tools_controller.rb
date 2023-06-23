@@ -29,7 +29,7 @@ class ToolsController < ApplicationController
     # get direction and input
     direction = params[:direction].to_sym if params[:direction].present?
     input = params[:file] if params[:file].present?
-    puts "###################\n#{input}"
+    puts "form data at `equalize_audio` in `tools_controller`:  #{input}"
 
     #### EQUALIZATION LOGIC:
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
