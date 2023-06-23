@@ -1,4 +1,3 @@
-
 class Tool < ApplicationRecord
   EQ_DIRECTIONS = %i[highpass radio lowpass vocal]
   belongs_to :user
@@ -36,8 +35,8 @@ class Tool < ApplicationRecord
 
     return true
   end
-
-  def self.equalize(audio_input, direction) # Get audio file and apply eq changes based on direction
+  def self.equalize(audio_input, direction)
+    # Get audio file and apply eq changes based on direction
     if audio_input.is_a?(String) # define input file name for ffmpeg transcoding
       file_name = audio_input.gsub(" ", "_")
     else

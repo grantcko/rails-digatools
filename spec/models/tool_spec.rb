@@ -106,8 +106,19 @@ RSpec.describe Tool, type: :model do
 
   describe "#equalize" do
     let(:controller) { ToolsController.new }
-    # let(:audio_input) { FFMPEG::Movie.new("/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3") }
-    let(:audio_input) { "/Users/granthall/code/grantcko/rails-digatools/spec/audio_input.mp3" }
+    file_data = IO.read('spec/audio_input.mp3')
+    tempfile = Tempfile.new('file_name')
+    tempfile.binmode
+    tempfile.write(file_data)
+    tempfile.rewind
+
+    uploaded_file = ActionDispatch::Http::UploadedFile.new(
+      tempfile: tempfile,
+      type: 'audio/mpeg',
+      filename: 'original_file_name'
+    )
+
+    let(:audio_input) { uploaded_file }
     let(:direction) { :radio }
 
     context "when the audio_input is invalid" do

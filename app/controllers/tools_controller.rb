@@ -25,6 +25,7 @@ class ToolsController < ApplicationController
   end
 
   def equalize_audio
+    # => post request with audio and eq direction then apply equalization
     # get direction and input
     direction = params[:direction].to_sym if params[:direction].present?
     input = params[:file] if params[:file].present?
@@ -43,6 +44,7 @@ class ToolsController < ApplicationController
   end
 
   def create
+    # create a new instance of a tool
     @tool = Tool.new(tool_params)
 
     if @tool.save
@@ -54,6 +56,7 @@ class ToolsController < ApplicationController
   end
 
   def update
+    # update and instance of a tool
     @tool = Tool.find(params[:id])
     if @tool.update(tool_params)
       redirect_to @tool
