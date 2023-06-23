@@ -13,6 +13,7 @@
     <%# trigger a javascript fuction that submits the form and presents a download link %>
     <%# then delete the file %>
     <input type="submit" id="eq-submit" value="Equalize">
+    <%= image_tag "loader.gif", style: "display: none; width: 20px", id: "loader" %>
     <input type="hidden" value="<%= @tool.id %>" name="tool_id" />
   </form>
 </div>
