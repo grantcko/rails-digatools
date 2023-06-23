@@ -30,29 +30,28 @@ class Tool < ApplicationRecord
     file_ext = File.extname(name)
     valid_extensions = %w[.wav .aac .mp3 .m4a]
     return false if valid_extensions.exclude?(file_ext)
-    return false if name.include?(' ')
+    puts "# name from #valid_audio_input?: #{name}"
 
     return true
   end
 
   def self.equalize(audio_input, direction)
-    # Get audio file and apply eq changes based on direction
-    if audio_input.is_a?(String) # define input file name for ffmpeg transcoding
-      file_name = audio_input.gsub(" ", "_")
-    else
-      file_name = audio_input.path.gsub(" ", "_")
-    end
-
-    # define output name
-    formdata_file_name = File.basename(audio_input).gsub(" ", "_")
-    file_base_name = File.basename(audio_input.original_filename, ".*").gsub(" ", "_")
-    file_ext = File.extname(audio_input.original_filename)
-    random_id = "#{rand.to_s[2..6]}"
-    output_file_name = "#{file_base_name}_output_#{random_id}#{file_ext}"
-
     # return error if invalid direction or audio_input
     raise ArgumentError.new("Invalid audio_input") unless Tool.valid_audio_input?(audio_input)
     raise ArgumentError.new("Invalid direction") unless Tool.valid_direction?(direction)
+
+    # Get audio file and apply eq changes based on direction
+    if audio_input.is_a?(String) # define input file name for ffmpeg transcoding
+      file_name = audio_input.gsub(/[() \[\]]/, "_")
+    else
+      file_name = audio_input.path.gsub(/[() \[\]]/, "_")
+    end
+
+    # define output name
+    file_base_name = File.basename(audio_input.original_filename, ".*").gsub(/[() \[\]]/, "_")
+    file_ext = File.extname(audio_input.original_filename)
+    random_id = "#{rand.to_s[2..6]}"
+    output_file_name = "#{file_base_name}_output_#{random_id}#{file_ext}"
 
     # apply eq changes based on direction
     case direction
