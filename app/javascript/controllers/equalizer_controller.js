@@ -11,16 +11,6 @@ export default class extends Controller {
     // run fuction when user submits the form
     eqForm.addEventListener("submit", submit,);
 
-    // function parseQueryString(queryString) {
-    //   const params = queryString.split('&');
-    //   const queryObject = {};
-    //   for (let param of params) {
-    //     const [key, value] = param.split('=');
-    //     queryObject[key] = value;
-    //   }
-    //   return queryObject;
-    // }
-
     function submit(event) {
       // send form data to server for eq processing + add link to the output file
       console.log("submitted");
