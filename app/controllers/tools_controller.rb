@@ -14,8 +14,8 @@ class ToolsController < ApplicationController
     @eq_directions = Tool::EQ_DIRECTIONS
   end
 
+  # send file from the filepath stored in the params
   def download
-    # send file from the filepath stored in the params
     output = params[:file]
     if File.file?("public/equalized_audio/#{output}")
       send_file "public/equalized_audio/#{output}", disposition: "attachment"
@@ -29,11 +29,11 @@ class ToolsController < ApplicationController
     # get direction and input from params
     direction = params[:direction].to_sym if params[:direction].present?
     input = params[:file] if params[:file].present?
-    puts "form data at `equalize_audio` in `tools_controller`:  #{input}"
+    puts "# form data at `equalize_audio` in `tools_controller`:  #{input} #"
 
     # equalization logic - direction and input are good? then do:
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
-      # equalize audio and return output - delete after 5 minutes
+      # equalize audio and return output(aka: filepath) -> delete after 5 minutes
       output = Tool.equalize(input, direction)
       RemoveFileJob.set(wait: 5.minutes).perform_later(output)
       return render json: { output: }
@@ -43,7 +43,6 @@ class ToolsController < ApplicationController
   end
 
   def create
-    # create a new instance of a tool
     @tool = Tool.new(tool_params)
 
     if @tool.save
@@ -63,6 +62,10 @@ class ToolsController < ApplicationController
       status :unprocessable_entity
       render 'edit'
     end
+  end
+
+  def generate_prompt(character)
+    return character
   end
 
   private
