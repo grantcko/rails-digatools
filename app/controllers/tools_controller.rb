@@ -24,21 +24,20 @@ class ToolsController < ApplicationController
     end
   end
 
+  # post request with audio and eq direction then apply equalization
   def equalize_audio
-    # => post request with audio and eq direction then apply equalization
-    # get direction and input
+    # get direction and input from params
     direction = params[:direction].to_sym if params[:direction].present?
     input = params[:file] if params[:file].present?
     puts "form data at `equalize_audio` in `tools_controller`:  #{input}"
 
-    #### EQUALIZATION LOGIC:
+    # equalization logic - direction and input are good? then do:
     if direction && input && Tool.valid_direction?(direction) && Tool.valid_audio_input?(input)
       # equalize audio and return output - delete after 5 minutes
       output = Tool.equalize(input, direction)
       RemoveFileJob.set(wait: 5.minutes).perform_later(output)
       return render json: { output: }
-    else
-      # redirect 422 if the direction or input doesn't exist or is invalid
+    else # redirect error 422
       redirect_to tool_path(params[:tool_id]), status: :unprocessable_entity
     end
   end
