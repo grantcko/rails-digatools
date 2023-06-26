@@ -106,12 +106,8 @@ RSpec.describe Tool, type: :model do
 
   describe "#equalize" do
     let(:controller) { ToolsController.new }
-    file_data = IO.read('spec/audio_input.mp3')
-    tempfile = Tempfile.new('file_name')
-    tempfile.binmode && tempfile.write(file_data) && tempfile.rewind
-
-    uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, type: 'audio/mpeg', filename: 'original_file_name.mp3')
-    invalid_uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, type: 'video/quicktime', filename: 'original_file_name.mov')
+    uploaded_file = build_test_mpeg
+    invalid_uploaded_file = build_test_mov
 
     let(:audio_input) { uploaded_file }
     let(:direction) { :radio }

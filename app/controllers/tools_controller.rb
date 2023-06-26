@@ -64,8 +64,12 @@ class ToolsController < ApplicationController
     end
   end
 
-  def generate_prompt(character)
-    return character
+  def destroy
+  end
+
+  def generate_prompt
+    put "# #{ params } #"
+    return render json: { prompt: params[:prompt] }
   end
 
   private

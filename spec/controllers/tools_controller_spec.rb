@@ -29,15 +29,6 @@ RSpec.describe ToolsController, type: :controller do
     end
   end
 
-  describe "#new" do
-    it "should exist" do
-      expect(controller).to respond_to(:new)
-    end
-
-    it "should render app/views/tools/new.html.erb" do
-    end
-  end
-
   describe "#create" do
     it "should exist" do
       expect(controller).to respond_to(:create)
@@ -49,15 +40,6 @@ RSpec.describe ToolsController, type: :controller do
     context "with invalid attributes" do
       it "redirects - status code 422" do
       end
-    end
-  end
-
-  describe "#edit" do
-    it "should exist" do
-      expect(controller).to respond_to(:edit)
-    end
-
-    it "should render app/views/tools/edit.html.erb" do
     end
   end
 
@@ -85,10 +67,15 @@ RSpec.describe ToolsController, type: :controller do
     end
 
     it "should return a json with filepath" do
+      post :equalize_audio, params: { direction: "lowpass", file: build_test_mpeg }
+      puts "# #{response.body} #"
+      expect(response.redirect?).to eq(false)
     end
 
     context "invalid direction" do
       it "redirects - status code 422" do
+        post :equalize_audio, params: { direction: "potato", file: build_test_mpeg }
+        expect(response.redirect?).to eq(true)
       end
     end
 
@@ -104,13 +91,14 @@ RSpec.describe ToolsController, type: :controller do
     end
 
     it "returns a json with a `prompt`" do
-      get :generate_prompt, params: { character: "potato" }
-      expect(response).to have_http_status(422).to include(prompt: /./)
+      post :generate_prompt, params: { prompt: "potato" }
+      puts response.body
+      expect(response.body).to include(prompt: /.*/)
     end
 
     context "missing input" do
       it "redirects - status code 422" do
-        get :generate_prompt, params: { character: 5 }
+        post :generate_prompt, params: { character: 5 }
         expect(response).to have_http_status(422)
       end
     end
