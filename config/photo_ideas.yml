@@ -1,0 +1,8 @@
+ideas:
+  - idea: "Photograph the nearest %{noun} to you"
+    items:
+      - "%{noun}"
+      - camera
+      - lens
+      - batteries
+      - sd card

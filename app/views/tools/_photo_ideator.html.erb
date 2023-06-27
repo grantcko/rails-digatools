@@ -1,0 +1,13 @@
+<div class="photo-ideator-container m-5" data-controller="photo-ideator">
+  <button id="unhide-btn">Generate idea</button>
+  <div class="" id="idea" style="display: none"}>
+    <h1><%= @photo_idea[:idea_sentence] %></h1>
+    <br>
+    <h2>What you will need:</h2>
+    <ul>
+      <% @photo_idea[:idea_items].each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
