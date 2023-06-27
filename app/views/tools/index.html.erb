@@ -3,5 +3,8 @@
     <% @tools.each do |tool| %>
       <%= link_to tool.name, tool_path(tool), class: "list-group-item text-center p-5" %>
     <% end %>
+    <%= link_to new_tool_path, class: "text-decoration-none" do %>
+      <li class="list-group-item text-center p-5">➕</li>
+    <% end %>
   </ul>
 </div>

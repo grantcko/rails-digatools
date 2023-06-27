@@ -57,7 +57,6 @@ class ToolsController < ApplicationController
     if @tool.save
       redirect_to @tool
     else
-      raise
       redirect_to new_tool_path, status: :unprocessable_entity
     end
   end
