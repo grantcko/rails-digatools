@@ -6,11 +6,11 @@ class ToolPolicy < ApplicationPolicy
     end
 
     def index?
-      record.user == user
+      true
     end
 
     def show?
-      record.user == user
+      true
     end
 
     def create?
@@ -18,11 +18,11 @@ class ToolPolicy < ApplicationPolicy
     end
 
     def update?
-      record.user == user
+      true
     end
 
     def destory?
-      record.user == user
+      true
     end
   end
 end

@@ -15,3 +15,6 @@ application.register("picker", PickerController)
 
 import PromptController from "./prompt_controller"
 application.register("prompt", PromptController)
+
+import ToolsController from "./tools_controller"
+application.register("tools", ToolsController)

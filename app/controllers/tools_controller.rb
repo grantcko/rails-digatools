@@ -73,6 +73,9 @@ class ToolsController < ApplicationController
   end
 
   def destroy
+    @tool = Tool.find(params[:id])
+    authorize @tool
+    @tool.destroy
   end
 
   private
