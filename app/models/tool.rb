@@ -5,7 +5,7 @@ class Tool < ApplicationRecord
   validates :name, presence: true
   validates :internals, presence: true
 
-  internals = ['custom', 'color_picker', 'auto_equalizer', 'prompt_generator']
+  internals = ['custom', 'color_picker', 'auto_equalizer', 'prompt_generator', 'photo_ideator']
 
   validates :internals, inclusion: { in: internals, message: "is not a valid item" }, allow_nil: true
   validate :internal_array?
