@@ -29,15 +29,15 @@ export default class extends Controller {
       })
       .then(function(data) {
         // remove loader
-          loader.style.display = 'none'
-          console.log(`this is the output file name: ${data.output}`);
-          downloadLink.textContent = `⬇️ ${data.output} ⬇️`;
-          const url = new URL(window.location.href);
-          const tool_id = String(url.pathname).match(/\/tools\/(\d+)/)[1]
-          downloadLink.href = `/download/?file=${data.output}&id=${tool_id}`;
-          console.log(`this is the download link: ${downloadLink}`);
-          container.insertBefore(downloadLink, eqForm)
-        });
+        loader.style.display = 'none'
+        console.log(`this is the output file name: ${data.output}`);
+        downloadLink.textContent = `⬇️ ${data.output} ⬇️`;
+        const url = new URL(window.location.href);
+        const tool_id = String(url.pathname).match(/\/tools\/(\d+)/)[1]
+        downloadLink.href = `/download/?file=${data.output}&id=${tool_id}`;
+        console.log(`this is the download link: ${downloadLink}`);
+        container.insertBefore(downloadLink, eqForm)
+      });
     };
   }
 }

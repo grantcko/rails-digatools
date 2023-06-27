@@ -67,11 +67,6 @@ class ToolsController < ApplicationController
   def destroy
   end
 
-  def generate_prompt
-    put "# #{ params } #"
-    return render json: { prompt: params[:prompt] }
-  end
-
   private
 
   def tool_params
