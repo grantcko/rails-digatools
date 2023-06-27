@@ -3,7 +3,7 @@
     <p class="p-0 m-0">LINKS</p>
     <ul class="px-0">
       <% @tool.links.each do |link| %>
-        <%= link_to URI.parse(link).host.gsub(/^www\./, ''), link %>
+        <%= link_to link, link %>
       <% end %>
     </ul>
   </div>

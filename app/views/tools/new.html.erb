@@ -1,0 +1,8 @@
+<div class="m-5">
+  <%= simple_form_for @tool do |f| %>
+    <%= f.input :name %>
+    <%= f.input :internals, as: :string, input_html: { value: @tool.internals.join(', ') } %>
+    <%= f.input :links, as: :string, input_html: { value: @tool.links.join(', ') } %>
+    <%= f.button :submit %>
+  <% end %>
+</div>

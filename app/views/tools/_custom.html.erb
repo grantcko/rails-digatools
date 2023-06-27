@@ -1,1 +1,5 @@
-custom here!
+<div class="text-center mt-5">
+  <% @tool.links.each do |link| %>
+    <h1><%= link_to link, link %></h1>
+  <% end %>
+</div>

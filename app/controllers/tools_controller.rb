@@ -1,4 +1,3 @@
-# require 'streamio-ffmpeg' # TODO: delete
 require 'faker'
 
 class ToolsController < ApplicationController
@@ -44,14 +43,22 @@ class ToolsController < ApplicationController
     @photo_idea = random_photo_idea
   end
 
+  def new
+    @tool = Tool.new
+  end
+
   def create
     @tool = Tool.new(tool_params)
+    @tool.user = current_user
+    @tool.internals << tool_params[:internals]
+    @tool.links << tool_params[:links]
 
+    authorize @tool
     if @tool.save
       redirect_to @tool
     else
-      status :unprocessable_entity
-      render 'tool'
+      raise
+      redirect_to new_tool_path, status: :unprocessable_entity
     end
   end
 

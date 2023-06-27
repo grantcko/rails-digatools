@@ -34,6 +34,16 @@ RSpec.describe ToolsController, type: :controller do
     end
   end
 
+  describe "GET #new" do
+    it "should exist as a controller method" do
+      expect(controller).to respond_to(:new)
+    end
+
+    it "should render app/views/tools/new.html.erb" do
+      fail # TODO
+    end
+  end
+
   describe "POST #create" do
     it "should exist as a controller method" do
       expect(controller).to respond_to(:create)
