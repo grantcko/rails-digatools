@@ -7,6 +7,9 @@ import { application } from "./application"
 import EqualizerController from "./equalizer_controller"
 application.register("equalizer", EqualizerController)
 
+import PhotoIdeatorController from "./photo_ideator_controller"
+application.register("photo-ideator", PhotoIdeatorController)
+
 import PickerController from "./picker_controller"
 application.register("picker", PickerController)
 
