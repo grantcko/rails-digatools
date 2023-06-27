@@ -1,18 +1,10 @@
-require 'streamio-ffmpeg'
+# require 'streamio-ffmpeg' # TODO: delete
+require 'faker'
 
 class ToolsController < ApplicationController
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
   # after_action :remove_file, only: :download
-
-  def index
-    @tools = current_user.tools
-  end
-
-  def show
-    @tool = Tool.find(params[:id])
-    @eq_directions = Tool::EQ_DIRECTIONS
-  end
 
   # send file from the filepath stored in the params
   def download
@@ -42,6 +34,16 @@ class ToolsController < ApplicationController
     end
   end
 
+  def index
+    @tools = current_user.tools
+  end
+
+  def show
+    @tool = Tool.find(params[:id])
+    @eq_directions = Tool::EQ_DIRECTIONS
+    @photo_idea = random_photo_idea
+  end
+
   def create
     @tool = Tool.new(tool_params)
 
@@ -68,6 +70,16 @@ class ToolsController < ApplicationController
   end
 
   private
+
+  # returns a hash with the photo idea information
+  def random_photo_idea
+    noun = Faker::Appliance.equipment
+    ideas = YAML.load_file(Rails.root.join('config', 'photo_ideas.yml'))
+    random_idea = ideas['ideas'].sample
+    idea_items = random_idea['items'].map { |item| item % { noun: } }
+    idea_sentence = random_idea['idea'] % { noun: }
+    return { idea_sentence:, idea_items: }
+  end
 
   def tool_params
     params.require(:tool).permit(:name, :note, :internals, :links)

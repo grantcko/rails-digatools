@@ -108,4 +108,14 @@ RSpec.describe ToolsController, type: :controller do
       end
     end
   end
+
+  describe "#random_photo_idea" do
+    it "should return a non empty hash" do
+      instance = ToolsController.new
+      result = instance.send(:random_photo_idea)
+      puts result
+      expect(result).to be_a(Hash)
+      expect(result).not_to be_empty
+    end
+  end
 end
