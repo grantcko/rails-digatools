@@ -1,1 +1,89 @@
 // Specific CSS for your home-page
+.home-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #F8C032;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.home-top-container {
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  display: flex;
+  h1 {
+    padding-bottom: .5rem;
+    color: $project-purple;
+    font-weight: 800;
+    letter-spacing: 1vw;
+  }
+}
+
+.icon-large {
+  padding-right: 24px;
+  font-size: 80px;
+}
+
+.icon-purple {
+ color: $project-purple;
+}
+
+.icon-black {
+ color: $project-black;
+}
+
+@media (max-width: 900px) {
+  .icon-large {
+    display: none !important;
+  }
+}
+
+.tool-demo-container {
+  margin-top: 16px;
+  background-color: $project-black;
+  color: $project-white;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.tool-demo-col {
+  height: 40vh;
+  width: 18vw;
+  padding: 4px;
+
+  .tool-demo {
+    height: 48px;
+    width: 100%;
+    border-radius: 2px;
+    background-color: $project-white;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+      color: $project-black;
+      margin: 0;
+      padding: 0;
+    }
+    @media (max-width: 900px) {
+      p {
+        font-size: 10px;
+      }
+    }
+  }
+
+}
+
+.home-btm-container {
+  margin: auto 0;
+  padding: 24px;
+  h3 {
+    color: $project-purple;
+  }
+}
