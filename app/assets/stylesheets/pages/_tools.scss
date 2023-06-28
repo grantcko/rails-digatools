@@ -1,0 +1,11 @@
+.tool-list {
+  list-style: none;
+  text-align: center;
+  margin-top: 80px;
+}
+
+.tool-list-item {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
