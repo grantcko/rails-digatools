@@ -1,9 +1,19 @@
 .navbar-lewagon {
+  z-index: 9999;
+  position: fixed;
+  width: 100vw;
+  top: 0;
   justify-content: space-between;
-  background: #272727;
-  color: #F8C032 !important;
+  background: $project-black;
+  color: $project-yellow;
+  font-family: $headings-font-family;
   a {
-    color: #F8C032 !important;
+    color: $project-yellow;
+    font-weight: 400;
+  }
+
+  a:hover {
+    color: $project-white
   }
 }
 
@@ -11,6 +21,47 @@
   flex-grow: 0;
 }
 
+// .brand-center {
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   line-height: 100%;
+//   margin: 0;
+// }
+
 .navbar-lewagon .navbar-brand img {
   width: 40px;
+  margin: 0px;
+  padding-right: 8px;
+}
+
+.navbar-lewagon .navbar-brand i {
+  margin: 0px;
+  padding-right: 8px;
+}
+
+.navbar-lewagon .navbar-brand h3 {
+  letter-spacing: 4px;
+  margin: 0px;
+  padding-bottom: 3px;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: start;
+}
+
+.nav-item {
+  letter-spacing: 3px;
+  margin-right: auto;
+  padding-left: 10px;
 }
