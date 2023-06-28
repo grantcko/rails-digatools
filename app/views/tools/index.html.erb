@@ -1,13 +1,13 @@
-<div class="card w-50 mx-auto mt-3" data-controller="tools">
-  <ul class="list-group list-group-flush">
+<div class="" data-controller="tools">
+  <ul class="tool-list">
     <% @tools.each do |tool| %>
-      <li class="list-group-item text-center p-5">
+      <li class="tool-list-item">
         <%= link_to tool.name, tool_path(tool), class: "" %>
         <p class="delete" id="<%= tool.id %>">❌</p>
       </li>
     <% end %>
     <%= link_to new_tool_path, class: "text-decoration-none" do %>
-      <li class="list-group-item text-center p-5">➕</li>
+      <li class="">➕</li>
     <% end %>
   </ul>
 </div>
