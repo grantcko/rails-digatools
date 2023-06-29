@@ -93,11 +93,25 @@ export default class extends Controller {
       hexCode.innerText = hexValue;
     }
 
-    picker.addEventListener("click", randomizeColor);
-    hexCopyBar.addEventListener("click", copyText);
-    colorWheel.addEventListener("click", function(event) {
-      var color = getPixelColor(colorWheel, event);
-      setColor(color);
-    });
+    // picker.addEventListener("click", randomizeColor);
+    // hexCopyBar.addEventListener("click", copyText);
+    // colorWheel.addEventListener("click", function(event) {
+    //   var color = getPixelColor(colorWheel, event);
+    //   setColor(color);
+    // });
+    document.addEventListener('click', function(event) {
+      const target = event.target;
+      if(target.matches('#picker-box')) {
+        randomizeColor();
+        console.log("clicker picked");
+      } else if (target.matches('#hex-bar')) {
+        console.log("hex-bar clicked");
+        copyText();
+      } else if (target.matches('#colorwheel')) {
+        console.log("colorwheel clicked");
+        var color = getPixelColor(colorWheel, event);
+        setColor(color);
+      }
+    })
   }
 }
