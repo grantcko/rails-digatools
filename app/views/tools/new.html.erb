@@ -1,8 +1,10 @@
-<div class="m-5">
+<div class="new-form">
   <%= simple_form_for @tool do |f| %>
     <%= f.input :name %>
-    <%= f.input :internals, as: :string, input_html: { value: @tool.internals.join(', ') } %>
+    <%= f.collection_select :internals, @all_internals, :to_s, :humanize, prompt: "Select an internal" %>
     <%= f.input :links, as: :string, input_html: { value: @tool.links.join(', ') } %>
     <%= f.button :submit %>
+    <!--hidden column name as value-->
+    <%= f.input :column, as: :hidden, input_html: { value: @column } %>
   <% end %>
 </div>

@@ -25,6 +25,9 @@
           </li>
           -->
         <% else %>
+          <li class="nav-item nav-item-start active">
+            <%= link_to "DEMO TOOLS", demos_path, class: "nav-link" %>
+          </li>
           <li class="nav-item">
             <%= link_to "LOGIN", new_user_session_path, class: "nav-link" %>
           </li>

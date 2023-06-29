@@ -2,8 +2,8 @@ require 'faker'
 
 class ToolsController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:demo_show, :demo_index]
   skip_before_action :verify_authenticity_token
-  # after_action :remove_file, only: :download
 
   # send file from the filepath stored in the params
   def download
@@ -35,6 +35,16 @@ class ToolsController < ApplicationController
 
   def index
     @tools = current_user.tools
+    @column_one = @tools.where(column: 1)
+    @column_two = @tools.where(column: 2)
+    @column_three = @tools.where(column: 3)
+  end
+
+  def demo_index
+    tools = Tool::INTERNALS
+    tools.delete('auto_equalizer')
+    tools.delete('custom')
+    @tools = tools
   end
 
   def show
@@ -43,13 +53,22 @@ class ToolsController < ApplicationController
     @photo_idea = random_photo_idea
   end
 
+  def demo_show
+    @eq_directions = Tool::EQ_DIRECTIONS
+    @photo_idea = random_photo_idea
+    @tool = params[:internal]
+  end
+
   def new
     @tool = Tool.new
+    @column = params[:col]
+    @all_internals = Tool::INTERNALS
   end
 
   def create
     @tool = Tool.new(tool_params)
     @tool.user = current_user
+    @tool.column = tool_params[:column]
     @tool.internals << tool_params[:internals]
     @tool.links << tool_params[:links]
 
@@ -91,6 +110,6 @@ class ToolsController < ApplicationController
   end
 
   def tool_params
-    params.require(:tool).permit(:name, :note, :internals, :links)
+    params.require(:tool).permit(:name, :note, :internals, :links, :column)
   end
 end

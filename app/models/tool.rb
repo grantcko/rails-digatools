@@ -1,13 +1,12 @@
 class Tool < ApplicationRecord
   EQ_DIRECTIONS = %i[highpass radio lowpass vocal]
+  INTERNALS = ['custom', 'color_picker', 'auto_equalizer', 'prompt_generator', 'photo_ideator']
+
   belongs_to :user
 
   validates :name, presence: true
   validates :internals, presence: true
-
-  internals = ['custom', 'color_picker', 'auto_equalizer', 'prompt_generator', 'photo_ideator']
-
-  validates :internals, inclusion: { in: internals, message: "is not a valid item" }, allow_nil: true
+  validates :internals, inclusion: { in: INTERNALS, message: "is not a valid item" }, allow_nil: true
   validate :internal_array?
 
   def internal_array?

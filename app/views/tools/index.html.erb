@@ -1,24 +1,34 @@
 <div class="tools-container" data-controller="tools">
   <ul class="tool-list">
-    <% @tools.each do |tool| %>
+    <% @column_one.each do |tool| %>
       <li class="tool-list-item">
         <%= link_to tool.name, tool_path(tool), class: "text-decoration-none text-reset" %>
         <i class="delete" id="<%= tool.id %>"><i class="fa-sharp fa-solid fa-delete-left"></i></i>
       </li>
     <% end %>
-    <%= link_to new_tool_path, class: "tool-add" do %>
+    <%= link_to "#{new_tool_path}?col=1", class: "tool-add" do %>
       <li><i class="fa-sharp fa-solid fa-plus"></i></li>
     <% end %>
   </ul>
   <ul class="tool-list">
-    <li class="tool-list-item">TODO</li>
-    <%= link_to new_tool_path, class: "tool-add" do %>
+    <% @column_two.each do |tool| %>
+      <li class="tool-list-item">
+        <%= link_to tool.name, tool_path(tool), class: "text-decoration-none text-reset" %>
+        <i class="delete" id="<%= tool.id %>"><i class="fa-sharp fa-solid fa-delete-left"></i></i>
+      </li>
+    <% end %>
+    <%= link_to "#{new_tool_path}?col=2", class: "tool-add" do %>
       <li><i class="fa-sharp fa-solid fa-plus"></i></li>
     <% end %>
   </ul>
   <ul class="tool-list">
-    <li class="tool-list-item">TODO</li>
-    <%= link_to new_tool_path, class: "tool-add" do %>
+    <% @column_three.each do |tool| %>
+      <li class="tool-list-item">
+        <%= link_to tool.name, tool_path(tool), class: "text-decoration-none text-reset" %>
+        <i class="delete" id="<%= tool.id %>"><i class="fa-sharp fa-solid fa-delete-left"></i></i>
+      </li>
+    <% end %>
+    <%= link_to "#{new_tool_path}?col=3", class: "tool-add" do %>
       <li><i class="fa-sharp fa-solid fa-plus"></i></li>
     <% end %>
   </ul>

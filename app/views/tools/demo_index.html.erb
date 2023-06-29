@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-center mt-5">
+  <ul class="tool-list mt-5">
+    <% @tools.each do |tool| %>
+      <%= link_to "demos/#{tool}", class: "text-decoration-none text-reset" do %>
+        <li class="tool-list-item">
+          <%= tool %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
