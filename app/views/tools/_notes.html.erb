@@ -7,10 +7,10 @@
       <% end %>
     </ul>
   </div>
-  <%= form_with(model: @tool, html: { style: 'height: 100%' }) do |form| %>
+  <%= form_with(model: @tool) do |form| %>
     <div class="note-input">
-      <%= form.text_area :note, class: 'note-text', cols: 30, rows: 10, placeholder: 'write ideas and notes here...' %>
-      <%= form.submit 'Save notes' %>
+      <%= form.submit 'Save notes',  class: 'btn btn-light mb-4' %>
+      <%= form.text_area :note, class: 'note-text', placeholder: 'write ideas and notes here...' %>
     </div>
   <% end %>
 </div>
