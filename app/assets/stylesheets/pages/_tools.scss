@@ -43,3 +43,15 @@
 .tool-add:hover {
   color: $project-yellow;
 }
+
+
+@media (max-width: 800px) {
+  .tools-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tool-list {
+    width: 80vw;
+  }
+}

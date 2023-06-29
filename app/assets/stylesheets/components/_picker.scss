@@ -1,9 +1,35 @@
 .picker-box {
-  position: relative;
   height: 100%;
   width: 100%;
   background-color: #ff0000;
   z-index: 0;
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.picker-container {
+  margin-top: 48px;
+  width: 400px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.hex-copy-bar {
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  text-align: center;
+}
+
+.hex-copy-bar:hover > .copy-notification {
+  color: white;
 }
 
 .hex-code {
@@ -20,62 +46,21 @@
   margin-right: 10px;
 }
 
-.hex-copy-bar:hover > .copy-notification {
-  color: white;
-}
+// .tool-container {
+//   position: relative;
+// }
 
-.tool-container {
-  position: relative;
-}
-
-.picker {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  height: 32%;
-  width: 32%;
-  background-color: white;
-}
-
-.hex-copy-bar {
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  background-color: black;
-  z-index: 2;
-  text-align: center;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.picker-container {
-  height: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 2rem;
-}
 
 .colorwheel {
   // background-color: rgb(255, 0, 0);
-  width: 128px;
-  height: 128px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
-}
-
-.luminosity-bar {
-  background: linear-gradient(white, black);
-  border-style: solid;
-  border-color: rgb(0, 0, 0);
-  height: 128px;
-  width: 24px;
-}
-
-.luminosity-bar {
-  background: linear-gradient(white, black);
-  border-style: solid;
-  border-color: black;
-  height: 128px;
-  width: 24px;
+  cursor: crosshair;
+  user-drag: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
