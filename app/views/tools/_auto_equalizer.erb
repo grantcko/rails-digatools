@@ -1,19 +1,21 @@
-<div id="equalizer-container" data-controller="equalizer" class="position-absolute top-50 start-50 translate-middle">
-  <form name="equalize" enctype="multipart/form-data" id="equalize-form" method="post" action="/equalize" class="mb-5">
-    <fieldset>
-      <legend>Please select an EQ type</legend>
-      <div>
+<div class="tool-container">
+  <div id="equalizer-container" data-controller="equalizer" class="equalizer-container">
+    <form name="equalize" enctype="multipart/form-data" id="equalize-form" method="post" action="/equalize" class="">
+      <fieldset>
+        <legend>Please select an EQ type</legend>
         <% @eq_directions.each do |direction| %>
-          <input type="radio" id="<%= direction %>" name="direction" value="<%= direction %>">
-          <label for="<%= direction %>"><%= direction %></label>
+          <div class="form-check form-check-inline mb-2">
+            <label for="<%= direction %>" class="form-check-label"><%= direction %></label>
+            <input type="radio" id="<%= direction %>" name="direction" value="<%= direction %>" class="form-check-input">
+          </div>
         <% end %>
-      </div>
-    </fieldset>
-    <input type="file" name="file" >
-    <%# trigger a javascript fuction that submits the form and presents a download link %>
-    <%# then delete the file %>
-    <input type="submit" id="eq-submit" value="Equalize">
-    <%= image_tag "loader.gif", style: "display: none; width: 20px", id: "loader" %>
-    <input type="hidden" value="<%= @tool.id %>" name="tool_id" />
-  </form>
+      </fieldset>
+      <input type="file" name="file" class="form-control mb-2">
+      <%# trigger a javascript fuction that submits the form and presents a download link %>
+      <%# then delete the file %>
+      <input type="submit" id="eq-submit" value="Equalize" class="btn btn-light">
+      <%= image_tag "loader.gif", style: "display: none; width: 20px", id: "loader" %>
+      <input type="hidden" value="<%= @tool.id %>" name="tool_id" />
+    </form>
+  </div>
 </div>
