@@ -5,3 +5,7 @@
 @import "navbar";
 @import "tool";
 @import "picker";
+
+body {
+  background-color: $project-yellow !important;
+}

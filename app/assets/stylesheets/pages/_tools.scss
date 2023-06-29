@@ -1,11 +1,45 @@
+.tools-container {
+  margin-top: 80px;
+  margin-left: 16px;
+  margin-right: 16px;
+  display: flex;
+  justify-content: center;
+}
+
 .tool-list {
+  margin-left: 16px;
+  margin-right: 16px;
+  padding: 8px;
+  border-radius: 8px;
   list-style: none;
   text-align: center;
-  margin-top: 80px;
+  width: 50vw;
+  background-color: $project-black;
 }
 
 .tool-list-item {
+  margin: 8px;
+  padding: 8px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $project-white;
   cursor: pointer;
+  text-decoration: none;
+  transition: .2s;
+}
+
+.tool-list-item:hover {
+  background-color: $project-yellow;
+  color: $project-purple;
+}
+
+.tool-add {
+  text-decoration: none;
+  color: $project-white
+}
+
+
+.tool-add:hover {
+  color: $project-yellow;
 }

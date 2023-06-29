@@ -1,13 +1,25 @@
-<div class="" data-controller="tools">
+<div class="tools-container" data-controller="tools">
   <ul class="tool-list">
     <% @tools.each do |tool| %>
       <li class="tool-list-item">
-        <%= link_to tool.name, tool_path(tool), class: "" %>
-        <p class="delete" id="<%= tool.id %>">❌</p>
+        <%= link_to tool.name, tool_path(tool), class: "text-decoration-none text-reset" %>
+        <i class="delete" id="<%= tool.id %>"><i class="fa-sharp fa-solid fa-delete-left"></i></i>
       </li>
     <% end %>
-    <%= link_to new_tool_path, class: "text-decoration-none" do %>
-      <li class="">➕</li>
+    <%= link_to new_tool_path, class: "tool-add" do %>
+      <li><i class="fa-sharp fa-solid fa-plus"></i></li>
+    <% end %>
+  </ul>
+  <ul class="tool-list">
+    <li class="tool-list-item">TODO</li>
+    <%= link_to new_tool_path, class: "tool-add" do %>
+      <li><i class="fa-sharp fa-solid fa-plus"></i></li>
+    <% end %>
+  </ul>
+  <ul class="tool-list">
+    <li class="tool-list-item">TODO</li>
+    <%= link_to new_tool_path, class: "tool-add" do %>
+      <li><i class="fa-sharp fa-solid fa-plus"></i></li>
     <% end %>
   </ul>
 </div>
