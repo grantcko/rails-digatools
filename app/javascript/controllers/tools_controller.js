@@ -9,7 +9,7 @@ export default class extends Controller {
       icon.addEventListener('click', function() {
         console.log(icon.id);
         fetch(`/tools/${icon.id}`, {method: "DELETE"})
-        icon.innerText = "delete successfully"
+        icon.innerText = "deleted successfully"
       })
     });
   }
