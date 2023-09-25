@@ -1,4 +1,4 @@
-# [Digatools - Rails Application]([LICENSE](https://rails-digatools-00cc874ac5b6.herokuapp.com/))
+# [Digatools - Rails Application](https://rails-digatools-00cc874ac5b6.herokuapp.com/)
 
 
 Welcome to Digatools, a Rails application designed to provide a set of creative tools and utilities for digital artists. This README provides instructions on how to set up and use this application.
