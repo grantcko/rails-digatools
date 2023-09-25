@@ -3,7 +3,6 @@
 Welcome to Digatools, a Rails application designed to provide a set of creative tools and utilities for digital artists. This README provides instructions on how to set up and use this application.
 
 <img width="300" alt="Screen Shot 2023-09-24 at 23 02 35" src="https://github.com/grantcko/rails-digatools/assets/121933082/d79a47ef-6140-4b4b-a488-8e312a55b6b8">
-<img width="300" alt="Screen Shot 2023-09-24 at 23 04 20" src="https://github.com/grantcko/rails-digatools/assets/121933082/5022cd16-a892-4caa-a24f-664acfb97737">
 <img width="300" alt="Screen Shot 2023-09-24 at 23 09 11" src="https://github.com/grantcko/rails-digatools/assets/121933082/139a8d81-aba3-4cf0-9ae3-4df656459c09">
 <img width="300" alt="Screen Shot 2023-09-24 at 23 08 29" src="https://github.com/grantcko/rails-digatools/assets/121933082/24219a3e-1be2-42fd-976c-f3cd7270ddf9">
 <img width="300" alt="Screen Shot 2023-09-24 at 23 05 57" src="https://github.com/grantcko/rails-digatools/assets/121933082/a91bfc20-8d8b-41c4-bf33-555344415ef5">
