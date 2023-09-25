@@ -1,7 +1,11 @@
 <div class="tool-container">
   <div class="text-center mt-5">
     <% @tool.links.each do |link| %>
-      <h1><%= link_to link, link %></h1>
+      <% if link =~ URI::DEFAULT_PARSER.make_regexp %>
+        <h1><%= link_to link, link, target: '_blank' %></h1>
+      <% else %>
+        <h1>invalid link</h1>
+      <% end %>
     <% end %>
   </div>
 </div>

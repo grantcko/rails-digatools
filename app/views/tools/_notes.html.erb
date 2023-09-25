@@ -3,7 +3,11 @@
     <p class="p-0 m-0">LINKS</p>
     <ul class="px-0">
       <% @tool.links.each do |link| %>
-        <%= link_to link, link %>
+        <% if link =~ URI::DEFAULT_PARSER.make_regexp %>
+          <%= link_to link, link, target: '_blank' %>
+        <% else %>
+          <p>invalid link</p>
+        <% end %>
       <% end %>
     </ul>
   </div>
