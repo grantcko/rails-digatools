@@ -41,7 +41,10 @@ class ToolsController < ApplicationController
   end
 
   def demo_index
-    tools = Tool::INTERNALS
+    tools = []
+    Tool::INTERNALS.each do |internal|
+      tools << internal
+    end
     tools.delete('auto_equalizer')
     tools.delete('custom')
     @tools = tools
