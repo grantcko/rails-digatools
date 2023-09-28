@@ -33,12 +33,12 @@ Before you begin, make sure you have the following dependencies installed:
 
 1. **Clone the Repository:**
 
-   git clone git@github.com:grantcko/rails-digatools.git
-   cd rails-digatools
+   `git clone git@github.com:grantcko/rails-digatools.git`
+   `cd rails-digatools`
 
-2. **Install Ruby Gems:**
+3. **Install Ruby Gems:**
 
-   bundle install
+   `bundle install`
 
 ## Usage
 
